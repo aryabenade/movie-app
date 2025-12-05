@@ -1,6 +1,8 @@
 import express from "express"
 import { PORT } from "./config/env.js"
 import { connectDB } from "./db/mongodb.js"
+import { movieRouter } from "./routes/movie.route.js"
+import { authRouter } from "./routes/auth.route.js"
 
 const app = express()
 
@@ -11,6 +13,10 @@ app.get('/', (req, res) => {
         message: "Let's start this project"
     })
 })
+
+app.use('/api/v1/auth', authRouter)
+app.use('api/v1/movies',movieRouter)
+
 
 connectDB()
     .then(() => {
