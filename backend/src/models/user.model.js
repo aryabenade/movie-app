@@ -1,8 +1,9 @@
 import mongoose from "mongoose"
+import bcrypt from "bcryptjs"
 
 const userSchema = new mongoose.Schema(
     {
-        userName: {
+        username: {
             type: String,
             required: [true, "Please enter your name"],
             minLength: 2,
@@ -35,30 +36,6 @@ userSchema.pre("save", async function () {
 //Function for checking passwords
 userSchema.methods.isPasswordCorrect = async function (password) {
     return await bcrypt.compare(password, this.password)
-}
-
-userSchema.methods.generateAccessToken = async function () {
-    return jwt.sign(
-        {
-            _id: this._id
-        },
-        ACCESS_TOKEN_SECRET,
-        {
-            expiresIn: ACCESS_TOKEN_EXPIRY
-        }
-    )
-}
-
-userSchema.methods.generateRefreshToken = async function () {
-    return jwt.sign(
-        {
-            _id: this._id
-        },
-        REFRESH_TOKEN_SECRET,
-        {
-            expiresIn: REFRESH_TOKEN_EXPIRY
-        }
-    )
 }
 
 export const User = mongoose.model("User", userSchema) 

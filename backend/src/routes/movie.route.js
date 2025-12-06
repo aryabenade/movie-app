@@ -6,15 +6,15 @@ const movieRouter = Router()
 
 movieRouter.use(protectRoute)
 
-movieRouter.get('/',)
-movieRouter.get('/sorted',)
-movieRouter.get('/search',)
+movieRouter.get('/',()=>console.log(first))
+movieRouter.get('/sorted',()=>console.log(first))
+movieRouter.get('/search',()=>console.log(first))
 
 //admin only
 movieRouter.use(verifyAdmin)
 
-movieRouter.post('/',)
-movieRouter.put('/:id',)
-movieRouter.delete('/:id',)
+movieRouter.post('/',()=>console.log(first))
+movieRouter.put('/:id',()=>console.log(first))
+movieRouter.delete('/:id',()=>console.log(first))
 
 export {movieRouter}

@@ -8,15 +8,17 @@ const app = express()
 
 const port = PORT || 5000
 
-app.get('/', (req, res) => {
-    res.json({
-        message: "Let's start this project"
-    })
-})
+app.use(express.json()); // <--- this is critical
+app.use(express.urlencoded({ extended: true })); // optional, for form data
 
-app.use('/api/v1/auth', authRouter)
-app.use('api/v1/movies',movieRouter)
+// app.get('/', (req, res) => {
+//     res.json({
+//         message: "Let's start this project"
+//     })
+// })
 
+app.use('/api/auth', authRouter)
+app.use('/api/movies', movieRouter)
 
 connectDB()
     .then(() => {
